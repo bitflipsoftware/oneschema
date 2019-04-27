@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://oneschema.org/oneschema.xsd" elementFormDefault="qualified" xmlns:osc="http://oneschema.org/oneschema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1" version="1.0.0">
+    <xs:element name="oneschema"/>
+</xs:schema>
