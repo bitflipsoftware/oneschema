@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<oneschema xmlns="http://oneschema.org/oneschema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fakeurl.com oneschema.xsd" />
+<oneschema xmlns="http://oneschema.org/oneschema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fakeurl.com oneschema.xsd" >
+<core-type>date</core-type>    
+</oneschema>
