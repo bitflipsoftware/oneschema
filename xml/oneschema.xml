@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <oneschema xmlns="http://oneschema.org/oneschema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fakeurl.com oneschema.xsd" >
-        
+        <tables>
+            <table>
+                <names>
+                    <uuid>9c0f0949-b223-43e7-8aa2-5f4b4b270a60</uuid>
+                    <name>user</name>
+                </names>
+            </table>
+        </tables>
 </oneschema>
