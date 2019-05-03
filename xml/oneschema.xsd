@@ -7,11 +7,6 @@
     <xs:element name="string"/>
     <xs:element name="decimal"/>
     <xs:element name="float"/>
-    <xs:complexType name="ct_float">
-        <xs:sequence>
-            <xs:element name="meta"/>
-        </xs:sequence>
-    </xs:complexType>
     <xs:simpleType name="st_snake_case">
         <xs:restriction base="xs:string">
             <xs:minLength value="1"/>
@@ -34,18 +29,24 @@
             <xs:pattern value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:element name="name" type="osc:st_snake_case" />
-    <xs:element name="plural" type="osc:st_snake_case"/>
-    <xs:element name="pascal-name" type="osc:st_pascal_case"/>
-    <xs:element name="pascal-plural" type="osc:st_pascal_case"/>
-    <xs:element name="names" type="osc:ct_names"/>
-    <xs:element name="uuid" type="osc:st_uuid"/>
+    <xs:complexType name="ct_float">
+        <xs:sequence>
+            <xs:element ref="osc:names"/>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="ct_names">
         <xs:sequence>
             <xs:element maxOccurs="1" minOccurs="1" ref="osc:uuid"/>
+            <xs:element maxOccurs="1" minOccurs="1" ref="osc:name"/>
             <xs:element maxOccurs="1" minOccurs="0" ref="osc:plural"/>
             <xs:element maxOccurs="1" minOccurs="0" ref="osc:pascal-plural"/>
             <xs:element maxOccurs="1" minOccurs="0" ref="osc:pascal-name"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:element name="name" type="osc:st_snake_case"/>
+    <xs:element name="plural" type="osc:st_snake_case"/>
+    <xs:element name="pascal-name" type="osc:st_pascal_case"/>
+    <xs:element name="pascal-plural" type="osc:st_pascal_case"/>
+    <xs:element name="names" type="osc:ct_names"/>
+    <xs:element name="uuid" type="osc:st_uuid"/>
 </xs:schema>
