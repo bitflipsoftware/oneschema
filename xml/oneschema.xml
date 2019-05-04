@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <oneschema xmlns="http://oneschema.org/oneschema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fakeurl.com oneschema.xsd" >
-        <tables>
-            <table>
-                <names>
-                    <uuid>9c0f0949-b223-43e7-8aa2-5f4b4b270a60</uuid>
-                    <name>user</name>
-                </names>
-            </table>
-        </tables>
+  <tables>
+    <table id="u9c0f0949-b223-43e7-8aa2-5f4b4b270a60">
+      <names>
+        <name>user</name>
+        <plural>users</plural>
+      </names>
+      <id-field-type>int_sequence</id-field-type>
+      <fields>
+        <int-field id="ub249764b-4ce6-4da3-8731-f5ed5a396391">
+          <names>
+            <name>some_number</name>
+          </names>
+        </int-field>
+      </fields>
+    </table>
+  </tables>
 </oneschema>

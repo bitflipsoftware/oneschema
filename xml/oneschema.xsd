@@ -1,135 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema targetNamespace="http://oneschema.org/oneschema.xsd" elementFormDefault="qualified"
-    xmlns:osc="http://oneschema.org/oneschema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.0" version="1.0.0">
-    <xs:element name="id-type" type="osc:st_id_type"/>
-    <xs:element name="oneschema">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="tables">
-                    <xs:complexType>
-                        <xs:sequence maxOccurs="unbounded" minOccurs="0">
-                            <xs:element ref="osc:table"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+  xmlns:osc="http://oneschema.org/oneschema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.0" version="1.0.0">
+  <xs:element name="id-type" type="osc:st_id_type"/>
+  <xs:attributeGroup name="ag_id">
+    <xs:attribute name="id" type="osc:st_uuid" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="oneschema">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tables">
+          <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="0">
+              <xs:element ref="osc:table"/>
             </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="table">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="osc:names"/>
-                <xs:element ref="osc:id-type"/>
-                <xs:element name="fields" type="osc:ct_field_choice"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:complexType name="ct_field_choice">
-        <xs:choice maxOccurs="32" minOccurs="1">
-            <xs:element ref="osc:int-field"/>
-            <xs:element ref="osc:decimal-field"/>
-            <xs:element ref="osc:string-field"/>
-            <xs:element ref="osc:float-field"/>
-        </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
     </xs:complexType>
-    <xs:element name="int-field">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="osc:names"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="string-field">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="osc:names"/>
-                <xs:element name="max-length">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:positiveInteger">
-                            <xs:minInclusive value="1"/>
-                            <xs:maxInclusive value="8000"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="decimal-field">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="osc:names"/>
-                <xs:element maxOccurs="1" minOccurs="0" name="precision-scale">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="precision" type="osc:st_precision_scale"/>
-                            <xs:element name="scale" type="osc:st_precision_scale"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="float-field">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="osc:names"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:simpleType name="st_snake_case">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:maxLength value="35"/>
-            <xs:pattern value="^[a-z]{1}[a-z0-9_]*$"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:simpleType name="st_pascal_case">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:maxLength value="35"/>
-            <xs:pattern value="^[A-Z]{1}[a-z0-9A-Z]*$"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:simpleType name="newSimpleType">
-        <xs:restriction base="xs:string"/>
-    </xs:simpleType>
-    <xs:simpleType name="st_uuid">
-        <xs:restriction base="xs:ID">
-            <xs:pattern value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:complexType name="ct_float">
-        <xs:sequence>
-            <xs:element ref="osc:names"/>
-        </xs:sequence>
+  </xs:element>
+  <xs:element name="table">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="osc:names"/>
+        <xs:element ref="osc:id-field-type"/>
+        <xs:element name="fields" type="osc:ct_field_choice"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="osc:ag_id"/>
     </xs:complexType>
-    <xs:complexType name="ct_names">
-        <xs:sequence>
-            <xs:element maxOccurs="1" minOccurs="1" ref="osc:uuid"/>
-            <xs:element maxOccurs="1" minOccurs="1" ref="osc:name"/>
-            <xs:element maxOccurs="1" minOccurs="0" ref="osc:plural"/>
-            <xs:element maxOccurs="1" minOccurs="0" ref="osc:pascal-plural"/>
-            <xs:element maxOccurs="1" minOccurs="0" ref="osc:pascal-name"/>
-        </xs:sequence>
+  </xs:element>
+  <xs:complexType name="ct_field_choice">
+    <xs:choice maxOccurs="32" minOccurs="1">
+      <xs:element ref="osc:int-field"/>
+      <xs:element ref="osc:decimal-field"/>
+      <xs:element ref="osc:string-field"/>
+      <xs:element ref="osc:float-field"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="int-field">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="osc:names"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="osc:ag_id"/>
     </xs:complexType>
-    <xs:simpleType name="st_precision_scale" final="">
-        <xs:restriction base="xs:nonNegativeInteger">
-            <xs:maxInclusive value="22"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:element name="name" type="osc:st_snake_case"/>
-    <xs:element name="plural" type="osc:st_snake_case"/>
-    <xs:element name="pascal-name" type="osc:st_pascal_case"/>
-    <xs:element name="pascal-plural" type="osc:st_pascal_case"/>
-    <xs:element name="names" type="osc:ct_names"/>
-    <xs:element name="uuid" type="osc:st_uuid"/>
-    <xs:simpleType name="st_id_type">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="int_sequence"/>
-            <xs:enumeration value="bson_object_id"/>
-            <xs:enumeration value="uuid"/>
-            <xs:enumeration value=""/>
-        </xs:restriction>
-    </xs:simpleType>
+  </xs:element>
+  <xs:element name="string-field">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="osc:names"/>
+        <xs:element name="max-length">
+          <xs:simpleType>
+            <xs:restriction base="xs:positiveInteger">
+              <xs:minInclusive value="1"/>
+              <xs:maxInclusive value="8000"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="osc:ag_id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="decimal-field">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="osc:names"/>
+        <xs:element maxOccurs="1" minOccurs="0" name="precision-scale">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="precision" type="osc:st_precision_scale"/>
+              <xs:element name="scale" type="osc:st_precision_scale"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="osc:ag_id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="float-field">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="osc:names"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="osc:ag_id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="st_snake_case">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+      <xs:pattern value="[a-z]{1}[a-z0-9_]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="st_pascal_case">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+      <xs:pattern value="[A-Z]{1}[a-z0-9A-Z]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="newSimpleType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="st_uuid">
+    <xs:restriction base="xs:ID">
+      <xs:pattern value="u[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ct_float">
+    <xs:sequence>
+      <xs:element ref="osc:names"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ct_names">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" ref="osc:name"/>
+      <xs:element maxOccurs="1" minOccurs="0" ref="osc:plural"/>
+      <xs:element maxOccurs="1" minOccurs="0" ref="osc:pascal-plural"/>
+      <xs:element maxOccurs="1" minOccurs="0" ref="osc:pascal-name"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="st_precision_scale" final="">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="22"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="name" type="osc:st_snake_case"/>
+  <xs:element name="plural" type="osc:st_snake_case"/>
+  <xs:element name="pascal-name" type="osc:st_pascal_case"/>
+  <xs:element name="pascal-plural" type="osc:st_pascal_case"/>
+  <xs:element name="names" type="osc:ct_names"/>
+  <xs:element name="uuid" type="osc:st_uuid"/>
+  <xs:simpleType name="st_id_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="int_sequence"/>
+      <xs:enumeration value="bson_object_id"/>
+      <xs:enumeration value="uuid"/>
+      <xs:enumeration value=""/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="id-field-type" type="osc:st_id_type"/>
 </xs:schema>
